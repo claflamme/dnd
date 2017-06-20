@@ -1,0 +1,27 @@
+{
+  "locals": {
+    "url": "http://localhost:8080",
+    "name": "D&D 5e Tools",
+    "owner": "Someone",
+    "description": "Keep rollin, rollin, rollin"
+  },
+  "plugins": [
+    "./node_modules/wintersmith-coffee/",
+    "wintersmith-stylus"
+  ],
+  "require": {
+    "moment": "moment",
+    "_": "lodash",
+    "typogr": "typogr"
+  },
+  "jade": {
+    "pretty": true
+  },
+  "markdown": {
+    "smartLists": true,
+    "smartypants": true
+  },
+  "paginator": {
+    "perPage": 3
+  }
+}

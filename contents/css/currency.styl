@@ -1,0 +1,55 @@
+#currency-container
+  margin 2rem 0
+
+.currency
+
+  .currency-column
+    display inline-block
+    width calc(20% - 10px)
+    margin 0 5px
+    text-align center
+
+    &:first-child, &:last-child
+      width calc(20% - 5px)
+
+    &:first-child
+      margin-left 0
+
+    &:last-child
+      margin-right 0
+
+  .currency-label
+    display none
+    +large()
+      display block
+
+  .currency-input
+    border 2px solid #ccc
+    box-shadow 0 0 0 2px
+    border-radius 5px
+    font-size 1.5rem
+    font-weight 700
+    width 100%
+    padding .5rem
+    text-align center
+
+  for $currency-key, $color-code in $currency-colors
+    .currency-column--{$currency-key} .currency-input
+      border-color $color-code
+      box-shadow 0 0 0 2px lighten($color-code, 50%)
+
+  .currency-key
+    font-size 1.5rem
+    line-height 1.5rem
+    font-weight 700
+
+.currency-results
+  text-align center
+  font-size 1.5rem
+  line-height 1.5rem
+
+.currency-output-dropdown
+  border 1px solid #ccc
+  margin 2rem 0
+  width 100%
+  font-size 1rem

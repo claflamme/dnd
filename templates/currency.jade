@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  .container.text-center
+    :markdown
+      # D&D 5e Currency Converter
+      Got too many coins in your bags? Convert to larger denominations to save
+      space, or see what it's all worth in gold.
+    #currency-container
+      
+  script(src=contents.scripts['currency.coffee'].url)

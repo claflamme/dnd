@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "moment": "2.3.x",
+    "typogr": "0.5.x",
+    "wintersmith-coffee": "^0.2.2",
+    "wintersmith-stylus": "^0.5.1"
+  },
+  "private": "true"
+}
