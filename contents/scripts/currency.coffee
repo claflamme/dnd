@@ -29,7 +29,6 @@ class Currency extends React.Component
 
     @state =
       inputs: generateDenominationMap()
-      bestFit: generateDenominationMap()
 
   onChange: (denominationKey) ->
     (e) =>
@@ -52,19 +51,13 @@ class Currency extends React.Component
       output
     , {}
 
-    denominationsList.map (denomination) ->
-      if isNaN denominations[denomination.key]
-        return "0#{ denomination.key } "
-      c 'span', className: "currency-results__result currency-results__result--#{ denomination.key }",
-        "#{ denominations[denomination.key] }#{ denomination.key } "
+    @renderOutputs denominations
 
   renderCurrencyColumn: (denomination, i) =>
     c 'div', {
       key: i
       className: "currency-column currency-column--#{ denomination.key }"
     },
-      c 'div', className: 'currency-label',
-        denomination.label
       c 'input',
         type: 'number'
         className: 'currency-input'
@@ -76,6 +69,14 @@ class Currency extends React.Component
     c 'select', className: 'currency-output-dropdown',
       c 'option', null,
         'Most efficient (smallest number of coins)'
+
+  renderOutputs: (outputs) ->
+    denominationsList.map (denomination) ->
+      c 'span', className: "currency-results__result currency-results__result--#{ denomination.key }",
+        c 'strong', null,
+          outputs[denomination.key] or 0
+        c 'small', null,
+          "#{ denomination.key } "
 
   render: ->
     c 'form', null,

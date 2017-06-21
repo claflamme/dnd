@@ -1,16 +1,17 @@
 #currency-container
-  margin 2rem 0
+  margin: 4rem 0
+  text-align: center
 
 .currency
 
   .currency-column
     display inline-block
-    width calc(20% - 10px)
-    margin 0 5px
+    width 'calc(20% - 6px)' % ($currency-column-margin * 2)
+    margin 0 $currency-column-margin
     text-align center
 
     &:first-child, &:last-child
-      width calc(20% - 5px)
+      width 'calc(20% - %s)' % $currency-column-margin
 
     &:first-child
       margin-left 0
@@ -25,7 +26,6 @@
 
   .currency-input
     border 2px solid #ccc
-    box-shadow 0 0 0 2px
     border-radius 5px
     font-size 1.5rem
     font-weight 700
@@ -36,7 +36,10 @@
   for $key, $code in $currency-colors
     .currency-column--{$key} .currency-input
       border-color $code
-      box-shadow 0 0 0 2px lighten($code, 50%)
+
+      &:focus
+        outline none
+        box-shadow 0 0 0 3px lighten($code, 50%)
 
   .currency-key
     font-size 1.5rem
@@ -53,3 +56,5 @@
   margin 2rem 0
   width 100%
   font-size 1rem
+  +large()
+    width auto
