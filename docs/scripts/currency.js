@@ -55,8 +55,7 @@ Currency = (function(superClass) {
     this.renderCurrencyColumn = bind(this.renderCurrencyColumn, this);
     Currency.__super__.constructor.call(this, props);
     this.state = {
-      inputs: generateDenominationMap(),
-      bestFit: generateDenominationMap()
+      inputs: generateDenominationMap()
     };
   }
 
@@ -84,23 +83,14 @@ Currency = (function(superClass) {
       total = total - (output[denomination.key] * denomination.value);
       return output;
     }, {});
-    return denominationsList.map(function(denomination) {
-      if (isNaN(denominations[denomination.key])) {
-        return "0" + denomination.key + " ";
-      }
-      return c('span', {
-        className: "currency-results__result currency-results__result--" + denomination.key
-      }, "" + denominations[denomination.key] + denomination.key + " ");
-    });
+    return this.renderOutputs(denominations);
   };
 
   Currency.prototype.renderCurrencyColumn = function(denomination, i) {
     return c('div', {
       key: i,
       className: "currency-column currency-column--" + denomination.key
-    }, c('div', {
-      className: 'currency-label'
-    }, denomination.label), c('input', {
+    }, c('input', {
       type: 'number',
       className: 'currency-input',
       onChange: this.onChange(denomination.key)
@@ -115,8 +105,16 @@ Currency = (function(superClass) {
     }, c('option', null, 'Most efficient (smallest number of coins)'));
   };
 
+  Currency.prototype.renderOutputs = function(outputs) {
+    return denominationsList.map(function(denomination) {
+      return c('span', {
+        className: "currency-results__result currency-results__result--" + denomination.key
+      }, c('strong', null, outputs[denomination.key] || 0), c('small', null, denomination.key + " "));
+    });
+  };
+
   Currency.prototype.render = function() {
-    return c('form', null, c(other, null), c('div', {
+    return c('form', null, c('div', {
       className: 'currency'
     }, denominationsList.map(this.renderCurrencyColumn)), c('div', null, this.renderConversionDropdown(), c('div', {
       className: 'currency-results'
