@@ -14,6 +14,9 @@
     "_": "lodash",
     "typogr": "typogr"
   },
+  "ignore": [
+    "**/_*"
+  ],
   "jade": {
     "pretty": true
   },
