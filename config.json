@@ -9,7 +9,8 @@
   "output": "./docs",
   "plugins": [
     "wintersmith-coffee",
-    "wintersmith-stylus"
+    "wintersmith-stylus",
+    "wintersmith-browserify"
   ],
   "require": {
     "moment": "moment",

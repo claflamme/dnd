@@ -3,6 +3,7 @@
     "lodash": "^4.17.4",
     "moment": "2.3.x",
     "typogr": "0.5.x",
+    "wintersmith-browserify": "^1.3.0",
     "wintersmith-coffee": "^0.2.2",
     "wintersmith-stylus": "^0.5.1"
   },
