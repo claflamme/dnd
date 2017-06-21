@@ -1,6 +1,7 @@
 extends layout
 
 block content
-  :markdown
-    ### D&D 5e
-    - [currency converter](currency.html)
+  h3 D&D 5e
+  ul
+    li
+      a(href=contents['currency.json'].url) currency converter
