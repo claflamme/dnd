@@ -5,6 +5,7 @@
     "owner": "Someone",
     "description": "Keep rollin, rollin, rollin"
   },
+  "output": "./docs",
   "plugins": [
     "./node_modules/wintersmith-coffee/",
     "wintersmith-stylus"
