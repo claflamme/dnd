@@ -8,7 +8,7 @@
   },
   "output": "./docs",
   "plugins": [
-    "./node_modules/wintersmith-coffee/",
+    "wintersmith-coffee",
     "wintersmith-stylus"
   ],
   "require": {

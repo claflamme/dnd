@@ -22,15 +22,19 @@ generateDenominationMap = ->
   fromPairs denominationsList.map (denomination) ->
     [denomination.key, 0]
 
-Currency = React.createClass
+class Currency extends React.Component
 
-  getInitialState: ->
-    inputs: generateDenominationMap()
-    bestFit: generateDenominationMap()
+  constructor: (props) ->
+    super props
 
-  onChange: (denominationKey, e) ->
-    @state.inputs[denominationKey] = parseInt(e.target.value or 0)
-    @setState @state
+    @state =
+      inputs: generateDenominationMap()
+      bestFit: generateDenominationMap()
+
+  onChange: (denominationKey) ->
+    (e) =>
+      @state.inputs[denominationKey] = parseInt e.target.value or 0
+      @setState @state
 
   renderSmallest: ->
     # Convert everything to copper
@@ -54,6 +58,20 @@ Currency = React.createClass
       c 'span', className: "currency-results__result currency-results__result--#{ denomination.key }",
         "#{ denominations[denomination.key] }#{ denomination.key } "
 
+  renderCurrencyColumn: (denomination, i) =>
+    c 'div', {
+      key: i
+      className: "currency-column currency-column--#{ denomination.key }"
+    },
+      c 'div', className: 'currency-label',
+        denomination.label
+      c 'input',
+        type: 'number'
+        className: 'currency-input'
+        onChange: @onChange denomination.key
+      c 'div', className: 'currency-key',
+        denomination.key
+
   renderConversionDropdown: ->
     c 'select', className: 'currency-output-dropdown',
       c 'option', null,
@@ -62,16 +80,7 @@ Currency = React.createClass
   render: ->
     c 'form', null,
       c 'div', className: 'currency',
-        denominationsList.map (denomination) =>
-          c 'div', className: "currency-column currency-column--#{ denomination.key }",
-            c 'div', className: 'currency-label',
-              denomination.label
-            c 'input',
-              type: 'text'
-              className: 'currency-input'
-              onChange: @onChange.bind this, denomination.key
-            c 'div', className: 'currency-key',
-              denomination.key
+        denominationsList.map @renderCurrencyColumn
       c 'div', null,
         @renderConversionDropdown()
         c 'div', className: 'currency-results',
