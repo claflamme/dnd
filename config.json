@@ -23,6 +23,11 @@
   "jade": {
     "pretty": true
   },
+  "stylus": {
+    "dependencies": [
+      "bootstrap-styl"
+    ]
+  },
   "markdown": {
     "smartLists": true,
     "smartypants": true
