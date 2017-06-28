@@ -59,7 +59,9 @@ BackgroundGenerator = (function(superClass) {
       className: 'row'
     }, el('div', {
       className: 'col-xs-12 col-sm-6 col-sm-offset-3'
-    }, el('h3', null, 'Background'), el('p', null, this.state.background.name + " (" + this.state.background.source + ")"), el('h3', null, 'Flaw'), el('p', null), this.state.flaw.text, el('h3', null, 'Bond'), el('p', null), this.state.bond.text, el('h3', null, 'Ideal'), el('p', null), el('strong', null, this.state.ideal.summary + ": "), this.state.ideal.text, el('h3', null, 'Personality Trait'), el('p', null), this.state.personality.text)));
+    }, el('div', {
+      className: 'background-details'
+    }, el('h3', null, 'Background'), el('p', null, this.state.background.name + " (" + this.state.background.source + ")"), el('h3', null, 'Flaw'), el('p', null), this.state.flaw.text, el('h3', null, 'Bond'), el('p', null), this.state.bond.text, el('h3', null, 'Ideal'), el('p', null), el('strong', null, this.state.ideal.summary + ": "), this.state.ideal.text, el('h3', null, 'Personality Trait'), el('p', null), this.state.personality.text))));
   };
 
   BackgroundGenerator.prototype.revealDestiny = function() {
@@ -85,14 +87,14 @@ BackgroundGenerator = (function(superClass) {
       className: 'col-xs-12 text-center'
     }, el('h1', null, 'D&D 5e Background Generator'), el('h2', null, 'Your Epic Destiny Awaits')))), el('div', {
       className: 'container-fluid'
-    }, this.renderDestiny(), el('div', {
+    }, el('div', {
       className: 'row'
     }, el('div', {
       className: 'col-xs-12 text-center'
     }, el('button', {
       className: 'refresh-button',
       onClick: this.revealDestiny
-    }, 'Choose another one'))))), this.renderDetails());
+    }, 'Choose another one'))), this.renderDestiny()), this.renderDetails()));
   };
 
   return BackgroundGenerator;
@@ -118,7 +120,7 @@ module.exports = {
       quip: "Gullible",
       text: "My piety sometimes leads me to blindly trust those that profess faith in my god."
     }, {
-      quip: "Closed minded",
+      quip: "Dogmatic",
       text: "I am inflexible in my thinking."
     }, {
       quip: "Untrusting",
@@ -139,7 +141,7 @@ module.exports = {
       quip: "with dead parents",
       text: "I owe my life to the priest who took me in when my parents died."
     }, {
-      quip: "who loves peasants",
+      quip: "and a man of the people",
       text: "Everything I do is for the common people."
     }, {
       quip: "that would die for their temple",
@@ -187,7 +189,7 @@ module.exports = {
       quip: "idolizes authority figures",
       text: "I idolize a particular hero of my faith, and constantly refer to that person's deeds and example."
     }, {
-      quip: "naturally diplomatic",
+      quip: "is naturally diplomatic",
       text: "I can find common ground between the fiercest enemies, empathizing with them and always working toward peace."
     }, {
       quip: "believes god talks to them",
@@ -329,7 +331,7 @@ module.exports = {
 module.exports = {
   name: "Criminal",
   source: "Player's Handbook",
-  quip: "ruffian",
+  quip: "scoundrel",
   flaws: [
     {
       quip: "thieving",
@@ -356,13 +358,13 @@ module.exports = {
       quip: "that's deeply in debt",
       text: "I’m trying to pay off an old debt I owe to a generous benefactor."
     }, {
-      quip: "with a heart of gold",
+      quip: "with a family to support",
       text: "My ill-gotten gains go to support my family."
     }, {
       quip: "on a quest for vengeance",
       text: "Something important was taken from me, and I aim to steal it back."
     }, {
-      quip: "with a lust for fame and fortune",
+      quip: "lusting for fame and fortune",
       text: "I will become the greatest thief that ever lived."
     }, {
       quip: "with a dark secret",
@@ -374,12 +376,12 @@ module.exports = {
   ],
   ideals: [
     {
-      quip: "mostly honorable",
+      quip: "follows a code of honor",
       summary: "Honor",
       text: "I don’t steal from others in the trade.",
       alignment: "Lawful"
     }, {
-      quip: "loves anarchy",
+      quip: "advocates anarchy",
       summary: "Freedom",
       text: "Chains are meant to be broken, as are those who would forge them.",
       alignment: "Chaotic"
@@ -394,7 +396,7 @@ module.exports = {
       text: "I will do whatever it takes to become wealthy.",
       alignment: "Evil"
     }, {
-      quip: "doesn't buy into causes or ideals",
+      quip: "rejects causes or ideals",
       summary: "People",
       text: "I’m loyal to my friends, not to any ideals, and everyone else can take a trip down the Styx for all I care.",
       alignment: "Neutral"
