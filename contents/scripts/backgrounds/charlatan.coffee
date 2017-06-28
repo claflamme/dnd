@@ -1,5 +1,6 @@
 module.exports =
   name: "Charlatan"
+  source: "Player's Handbook"
   quip: "con artist"
   flaws: [
     {

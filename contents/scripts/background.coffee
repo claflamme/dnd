@@ -3,6 +3,7 @@ el = React.createElement
 backgroundsList = [
   require './backgrounds/acolyte'
   require './backgrounds/charlatan'
+  require './backgrounds/criminal'
 ]
 
 getRandomFromList = (list) ->
@@ -33,7 +34,7 @@ class BackgroundGenerator extends React.Component
           el 'h3', null,
             'Background'
           el 'p', null,
-            background.name
+            "#{ background.name } (#{ background.source })"
           el 'h3', null,
             'Flaw'
           el 'p', null

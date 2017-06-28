@@ -1,5 +1,6 @@
 module.exports =
   name: "Acolyte"
+  source: "Player's Handbook"
   quip: "priest"
   flaws: [
     {
