@@ -4,7 +4,7 @@ module.exports =
   quip: "priest"
   flaws: [
     {
-      quip: "Judgmental"
+      quip: "overly judgmental"
       text: "I judge others harshly, and myself even more severely."
     }
     {
@@ -42,7 +42,7 @@ module.exports =
       text: "I owe my life to the priest who took me in when my parents died."
     }
     {
-      quip: "and a man of the people"
+      quip: "who is a man of the people"
       text: "Everything I do is for the common people."
     }
     {

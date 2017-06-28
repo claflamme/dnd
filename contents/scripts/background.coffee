@@ -4,6 +4,7 @@ backgroundsList = [
   require './backgrounds/acolyte'
   require './backgrounds/charlatan'
   require './backgrounds/criminal'
+  require './backgrounds/entertainer'
 ]
 
 getRandomFromList = (list) ->
