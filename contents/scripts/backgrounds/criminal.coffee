@@ -1,7 +1,7 @@
 module.exports =
   name: "Criminal"
   source: "Player's Handbook"
-  quip: "ruffian"
+  quip: "scoundrel"
   flaws: [
     {
       quip: "thieving"
@@ -34,7 +34,7 @@ module.exports =
       text: "I’m trying to pay off an old debt I owe to a generous benefactor."
     }
     {
-      quip: "with a heart of gold"
+      quip: "with a family to support"
       text: "My ill-gotten gains go to support my family."
     }
     {
@@ -42,7 +42,7 @@ module.exports =
       text: "Something important was taken from me, and I aim to steal it back."
     }
     {
-      quip: "with a lust for fame and fortune"
+      quip: "lusting for fame and fortune"
       text: "I will become the greatest thief that ever lived."
     }
     {
@@ -56,13 +56,13 @@ module.exports =
   ]
   ideals: [
     {
-      quip: "mostly honorable"
+      quip: "follows a code of honor"
       summary: "Honor"
       text: "I don’t steal from others in the trade."
       alignment: "Lawful"
     }
     {
-      quip: "loves anarchy"
+      quip: "advocates anarchy"
       summary: "Freedom"
       text: "Chains are meant to be broken, as are those who would forge them."
       alignment: "Chaotic"
@@ -80,7 +80,7 @@ module.exports =
       alignment: "Evil"
     }
     {
-      quip: "doesn't buy into causes or ideals"
+      quip: "rejects causes or ideals"
       summary: "People"
       text: "I’m loyal to my friends, not to any ideals, and everyone else can take a trip down the Styx for all I care."
       alignment: "Neutral"

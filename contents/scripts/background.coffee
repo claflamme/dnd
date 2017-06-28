@@ -42,28 +42,29 @@ class BackgroundGenerator extends React.Component
     el 'div', className: 'container',
       el 'div', className: 'row',
         el 'div', className: 'col-xs-12 col-sm-6 col-sm-offset-3',
-          el 'h3', null,
-            'Background'
-          el 'p', null,
-            "#{ @state.background.name } (#{ @state.background.source })"
-          el 'h3', null,
-            'Flaw'
-          el 'p', null
-            @state.flaw.text
-          el 'h3', null,
-            'Bond'
-          el 'p', null
-            @state.bond.text
-          el 'h3', null,
-            'Ideal'
-          el 'p', null
-            el 'strong', null,
-              "#{ @state.ideal.summary }: "
-            @state.ideal.text
-          el 'h3', null,
-            'Personality Trait'
-          el 'p', null
-            @state.personality.text
+          el 'div', className: 'background-details',
+            el 'h3', null,
+              'Background'
+            el 'p', null,
+              "#{ @state.background.name } (#{ @state.background.source })"
+            el 'h3', null,
+              'Flaw'
+            el 'p', null
+              @state.flaw.text
+            el 'h3', null,
+              'Bond'
+            el 'p', null
+              @state.bond.text
+            el 'h3', null,
+              'Ideal'
+            el 'p', null
+              el 'strong', null,
+                "#{ @state.ideal.summary }: "
+              @state.ideal.text
+            el 'h3', null,
+              'Personality Trait'
+            el 'p', null
+              @state.personality.text
 
   revealDestiny: =>
     background = getRandomBackground()
@@ -87,11 +88,11 @@ class BackgroundGenerator extends React.Component
               el 'h2', null,
                 'Your Epic Destiny Awaits'
         el 'div', className: 'container-fluid',
-          @renderDestiny()
           el 'div', className: 'row',
             el 'div', className: 'col-xs-12 text-center',
               el 'button', className: 'refresh-button', onClick: @revealDestiny,
                 'Choose another one'
-      @renderDetails()
+          @renderDestiny()
+        @renderDetails()
 
 ReactDOM.render el(BackgroundGenerator), document.querySelector('#background-container')

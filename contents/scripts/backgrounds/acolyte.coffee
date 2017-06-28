@@ -16,7 +16,7 @@ module.exports =
       text: "My piety sometimes leads me to blindly trust those that profess faith in my god."
     }
     {
-      quip: "Closed minded"
+      quip: "Dogmatic"
       text: "I am inflexible in my thinking."
     }
     {
@@ -42,7 +42,7 @@ module.exports =
       text: "I owe my life to the priest who took me in when my parents died."
     }
     {
-      quip: "who loves peasants"
+      quip: "and a man of the people"
       text: "Everything I do is for the common people."
     }
     {
@@ -98,7 +98,7 @@ module.exports =
       text: "I idolize a particular hero of my faith, and constantly refer to that person's deeds and example."
     }
     {
-      quip: "naturally diplomatic"
+      quip: "is naturally diplomatic"
       text: "I can find common ground between the fiercest enemies, empathizing with them and always working toward peace."
     }
     {
