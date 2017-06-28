@@ -1,0 +1,67 @@
+.background-generator
+  background-image url(../img/background-background.jpg)
+  background-color #000
+  background-repeat no-repeat
+  background-position 50% bottom
+  color #fff
+  padding 3rem 0
+  +large()
+    height 500px
+
+  h1
+    font-size 1.3rem
+    text-shadow 0 0 0.7rem #000, 0 0 1.5rem #000, 0 0 1.5rem #000
+    margin-top 0
+
+  h2
+    font-family 'Alegreya SC', serif
+    font-size 4rem
+    line-height 4rem
+    margin 0
+    text-shadow 0 0 1.5rem #000, 0 0 2rem #000, 0 0 2rem #000
+
+  .refresh-button
+    background #d01e1e
+    border 1px solid #ff4040
+    box-shadow 0 0 40px 10px #000
+    padding .5rem 1rem
+    font-size 1.5rem
+    color #fff
+    font-weight bold
+    border-radius .5rem
+    cursor pointer
+
+    &:hover
+      background-color lighten(#d01e1e, 5%)
+
+    &:focus
+      background-color lighten(#d01e1e, 10%)
+      border 1px solid lighten(#ff4040, 60%)
+      outline 0
+
+      &:active
+        background-color darken(#d01e1e, 5%)
+
+  .background-summary
+    background-color rgba(0, 0, 0, 0.7)
+    padding 1rem
+    border-radius 0.3rem
+    margin 3rem 0
+
+    .background-main-line
+      font-size 1.5rem
+      font-weight 700
+      color #fffe90
+      +large()
+        font-size 2.5rem
+
+    .background-sub-line
+      font-size 1.5rem
+      font-style italic
+      +large()
+        font-size 2rem
+
+    .background-main-line,
+    .background-sub-line
+      &::first-letter
+        text-transform uppercase

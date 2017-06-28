@@ -62,7 +62,7 @@ module.exports =
       alignment: "Lawful"
     }
     {
-      quip: "anarchistic"
+      quip: "loves anarchy"
       summary: "Freedom"
       text: "Chains are meant to be broken, as are those who would forge them."
       alignment: "Chaotic"
