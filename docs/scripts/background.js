@@ -1,5 +1,6 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var BackgroundGenerator, backgroundsList, el, getRandomBackground, getRandomFromList,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
@@ -18,34 +19,80 @@ getRandomBackground = function() {
 BackgroundGenerator = (function(superClass) {
   extend(BackgroundGenerator, superClass);
 
-  function BackgroundGenerator() {
-    return BackgroundGenerator.__super__.constructor.apply(this, arguments);
+  function BackgroundGenerator(props) {
+    this.revealDestiny = bind(this.revealDestiny, this);
+    BackgroundGenerator.__super__.constructor.call(this, props);
+    this.state = {
+      background: null,
+      flaw: null,
+      bond: null,
+      ideal: null,
+      personality: null
+    };
   }
 
-  BackgroundGenerator.prototype.render = function() {
-    var background, bond, description, flaw, ideal, personality, summary;
-    background = getRandomBackground();
-    flaw = getRandomFromList(background.flaws);
-    bond = getRandomFromList(background.bonds);
-    ideal = getRandomFromList(background.ideals);
-    personality = getRandomFromList(background.personalities);
-    summary = flaw.quip + " " + background.quip + " " + bond.quip + ".";
-    description = ideal.quip + " and " + personality.quip + ".";
+  BackgroundGenerator.prototype.componentWillMount = function() {
+    return this.revealDestiny();
+  };
+
+  BackgroundGenerator.prototype.renderDestiny = function() {
+    var description, summary;
+    summary = this.state.flaw.quip + " " + this.state.background.quip + " " + this.state.bond.quip + ".";
+    description = this.state.ideal.quip + " and " + this.state.personality.quip + ".";
+    return el('div', {
+      className: 'row'
+    }, el('div', {
+      className: 'col-xs-12'
+    }, el('div', {
+      className: 'background-summary text-center'
+    }, el('div', {
+      className: 'background-main-line'
+    }, summary.toLowerCase()), el('div', {
+      className: 'background-sub-line'
+    }, description.toLowerCase()))));
+  };
+
+  BackgroundGenerator.prototype.renderDetails = function() {
     return el('div', {
       className: 'container'
     }, el('div', {
       className: 'row'
     }, el('div', {
-      className: 'col-xs-12'
-    }, el('h2', {
-      className: 'text-center'
-    }, summary.toLowerCase()), el('h3', {
-      className: 'text-center'
-    }, description.toLowerCase()))), el('div', {
+      className: 'col-xs-12 col-sm-6 col-sm-offset-3'
+    }, el('h3', null, 'Background'), el('p', null, this.state.background.name + " (" + this.state.background.source + ")"), el('h3', null, 'Flaw'), el('p', null), this.state.flaw.text, el('h3', null, 'Bond'), el('p', null), this.state.bond.text, el('h3', null, 'Ideal'), el('p', null), el('strong', null, this.state.ideal.summary + ": "), this.state.ideal.text, el('h3', null, 'Personality Trait'), el('p', null), this.state.personality.text)));
+  };
+
+  BackgroundGenerator.prototype.revealDestiny = function() {
+    var background;
+    background = getRandomBackground();
+    return this.setState({
+      background: background,
+      flaw: getRandomFromList(background.flaws),
+      bond: getRandomFromList(background.bonds),
+      ideal: getRandomFromList(background.ideals),
+      personality: getRandomFromList(background.personalities)
+    });
+  };
+
+  BackgroundGenerator.prototype.render = function() {
+    return el('div', null, el('div', {
+      className: 'background-generator'
+    }, el('div', {
+      className: 'container'
+    }, el('div', {
       className: 'row'
     }, el('div', {
-      className: 'col-xs-12 col-sm-6 col-sm-offset-3'
-    }, el('h3', null, 'Background'), el('p', null, background.name + " (" + background.source + ")"), el('h3', null, 'Flaw'), el('p', null), flaw.text, el('h3', null, 'Bond'), el('p', null), bond.text, el('h3', null, 'Ideal'), el('p', null), el('strong', null, ideal.summary + ": "), ideal.text, el('h3', null, 'Personality Trait'), el('p', null), personality.text)));
+      className: 'col-xs-12 text-center'
+    }, el('h1', null, 'D&D 5e Background Generator'), el('h2', null, 'Your Epic Destiny Awaits')))), el('div', {
+      className: 'container-fluid'
+    }, this.renderDestiny(), el('div', {
+      className: 'row'
+    }, el('div', {
+      className: 'col-xs-12 text-center'
+    }, el('button', {
+      className: 'refresh-button',
+      onClick: this.revealDestiny
+    }, 'Choose another one'))))), this.renderDetails());
   };
 
   return BackgroundGenerator;
@@ -237,7 +284,7 @@ module.exports = {
       text: "I never run the same con twice.",
       alignment: "Chaotic"
     }, {
-      quip: "bit of a softy",
+      quip: "a bit of a softy",
       summary: "Friendship",
       text: "Material goods come and go. Bonds of friendship last forever.",
       alignment: "Good"
@@ -259,7 +306,7 @@ module.exports = {
       quip: "manipulates people for personal gain",
       text: "Flattery is my preferred trick for getting what I want."
     }, {
-      quip: "addicted to gambling",
+      quip: "is addicted to gambling",
       text: "I’m a born gambler who can't resist taking a risk for a potential payoff."
     }, {
       quip: "is a pathological liar",
@@ -332,7 +379,7 @@ module.exports = {
       text: "I don’t steal from others in the trade.",
       alignment: "Lawful"
     }, {
-      quip: "anarchistic",
+      quip: "loves anarchy",
       summary: "Freedom",
       text: "Chains are meant to be broken, as are those who would forge them.",
       alignment: "Chaotic"

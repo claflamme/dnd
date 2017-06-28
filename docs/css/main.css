@@ -788,12 +788,12 @@ html {
   font-size: 16px;
   background: #fff;
 }
+body {
+  margin: 0;
+  padding: 0;
+}
 h1 {
   line-height: 1em;
-}
-.container {
-  max-width: 800px;
-  margin: auto;
 }
 .container.half {
   max-width: 400px;
@@ -893,4 +893,80 @@ h1 {
   .currency-output-dropdown {
     width: auto;
   }
+}
+.background-generator {
+  background-image: url("../img/background-background.jpg");
+  background-color: #000;
+  background-repeat: no-repeat;
+  background-position: 50% bottom;
+  color: #fff;
+  padding: 3rem 0;
+}
+@media (min-width: 700px) {
+  .background-generator {
+    height: 500px;
+  }
+}
+.background-generator h1 {
+  font-size: 1.3rem;
+  text-shadow: 0 0 0.7rem #000, 0 0 1.5rem #000, 0 0 1.5rem #000;
+  margin-top: 0;
+}
+.background-generator h2 {
+  font-family: 'Alegreya SC', serif;
+  font-size: 4rem;
+  line-height: 4rem;
+  margin: 0;
+  text-shadow: 0 0 1.5rem #000, 0 0 2rem #000, 0 0 2rem #000;
+}
+.background-generator .refresh-button {
+  background: #d01e1e;
+  border: 1px solid #ff4040;
+  box-shadow: 0 0 40px 10px #000;
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+.background-generator .refresh-button:hover {
+  background-color: #dc2020;
+}
+.background-generator .refresh-button:focus {
+  background-color: #e02929;
+  border: 1px solid #ffb3b3;
+  outline: 0;
+}
+.background-generator .refresh-button:focus:active {
+  background-color: #c61c1c;
+}
+.background-generator .background-summary {
+  background-color: rgba(0,0,0,0.7);
+  padding: 1rem;
+  border-radius: 0.3rem;
+  margin: 3rem 0;
+}
+.background-generator .background-summary .background-main-line {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fffe90;
+}
+@media (min-width: 700px) {
+  .background-generator .background-summary .background-main-line {
+    font-size: 2.5rem;
+  }
+}
+.background-generator .background-summary .background-sub-line {
+  font-size: 1.5rem;
+  font-style: italic;
+}
+@media (min-width: 700px) {
+  .background-generator .background-summary .background-sub-line {
+    font-size: 2rem;
+  }
+}
+.background-generator .background-summary .background-main-line::first-letter,
+.background-generator .background-summary .background-sub-line::first-letter {
+  text-transform: uppercase;
 }

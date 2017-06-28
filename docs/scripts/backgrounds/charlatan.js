@@ -67,7 +67,7 @@ module.exports = {
       text: "I never run the same con twice.",
       alignment: "Chaotic"
     }, {
-      quip: "bit of a softy",
+      quip: "a bit of a softy",
       summary: "Friendship",
       text: "Material goods come and go. Bonds of friendship last forever.",
       alignment: "Good"
@@ -89,7 +89,7 @@ module.exports = {
       quip: "manipulates people for personal gain",
       text: "Flattery is my preferred trick for getting what I want."
     }, {
-      quip: "addicted to gambling",
+      quip: "is addicted to gambling",
       text: "I’m a born gambler who can't resist taking a risk for a potential payoff."
     }, {
       quip: "is a pathological liar",
