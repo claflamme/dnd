@@ -1,15 +1,17 @@
-body.background
-  background-color #000
-
 .background-generator
   background-image url(../img/background-background.jpg)
   background-color #000
   background-repeat no-repeat
   background-position 50% top
+  background-size 200%
   color #fff
-  padding 3rem 0
-  +sm()
-    padding-top 350px
+  padding-top 1rem
+  +md()
+    background-size 100%
+    padding-top 15%
+  +lg()
+    background-size 1400px
+    padding-top 275px
 
   h1
     font-size 1.3rem
@@ -20,20 +22,20 @@ body.background
 
   h2
     font-family 'Alegreya SC', serif
-    font-size 4rem
-    line-height 4rem
+    font-size 3rem
+    line-height 3rem
     margin 0
     text-shadow 0 0 1.5rem #000, 0 0 2rem #000, 0 0 2rem #000
     +sm()
-      font-size 6rem
-      line-height 6rem
+      font-size 5rem
+      line-height 5rem
 
   .refresh-button
     background #d01e1e
     border 1px solid #ff4040
     box-shadow 0 0 40px 10px #000
     padding .5rem 1rem
-    margin 3rem 0 0 0
+    margin 0 0 2rem 0
     font-size 1.5rem
     color #fff
     font-weight bold
@@ -53,11 +55,11 @@ body.background
 
   .background-summary
     background-color rgba(0, 0, 0, 0.7)
-    padding 3rem
+    padding 2rem
     margin 1rem 0
 
     +sm()
-      margin 5rem -15px
+      margin 2rem -15px
 
     .background-main-line
       font-size 1.5rem

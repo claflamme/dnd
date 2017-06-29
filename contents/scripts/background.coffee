@@ -39,8 +39,6 @@ class BackgroundGenerator extends React.Component
               summary.toLowerCase()
             el 'div', className: 'background-sub-line',
               description.toLowerCase()
-            el 'button', className: 'refresh-button', onClick: @revealDestiny,
-              'Show another ↻'
 
   renderBackgroundTrait: (title, text) ->
     el 'div', null,
@@ -58,10 +56,10 @@ class BackgroundGenerator extends React.Component
   renderDetails: ->
     ideal = @renderIdeal @state.ideal.summary, @state.ideal.text
 
-    el 'div', className: 'container',
-      el 'div', className: 'row',
-        el 'div', className: 'col-xs-12',
-          el 'div', className: 'background-details',
+    el 'div', className: 'background-details',
+      el 'div', className: 'container',
+        el 'div', className: 'row',
+          el 'div', className: 'col-xs-12',
             @renderBackgroundTrait "Background", "#{ @state.background.name } (#{ @state.background.source })"
             @renderBackgroundTrait "Flaw", @state.flaw.text
             @renderBackgroundTrait "Bond", @state.bond.text
@@ -90,6 +88,11 @@ class BackgroundGenerator extends React.Component
               el 'h2', null,
                 'Your Epic Destiny Awaits'
         @renderDestiny()
+        el 'div', className: 'container',
+          el 'div', className: 'row',
+            el 'div', className: 'col-xs-12 text-center',
+              el 'button', className: 'refresh-button', onClick: @revealDestiny,
+                'Show another ↻'
         @renderDetails()
 
 ReactDOM.render el(BackgroundGenerator), document.querySelector('#background-container')
