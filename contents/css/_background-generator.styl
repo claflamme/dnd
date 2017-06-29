@@ -1,6 +1,6 @@
 .background-generator
   background-image url(../img/background-background.jpg)
-  background-color #000
+  background-color black
   background-repeat no-repeat
   background-position 50% top
   background-size 200%
@@ -15,7 +15,7 @@
 
   h1
     font-size 1.3rem
-    text-shadow 0 0 0.7rem #000, 0 0 1.5rem #000, 0 0 1.5rem #000
+    text-shadow 0 0 0.7rem black, 0 0 1.5rem black, 0 0 1.5rem black
     margin-top 0
     +sm()
       font-size 2rem
@@ -25,33 +25,32 @@
     font-size 3rem
     line-height 3rem
     margin 0
-    text-shadow 0 0 1.5rem #000, 0 0 2rem #000, 0 0 2rem #000
+    text-shadow 0 0 1.5rem black, 0 0 2rem black, 0 0 2rem black
     +sm()
       font-size 5rem
       line-height 5rem
 
   .refresh-button
-    background #d01e1e
-    border 1px solid #ff4040
-    box-shadow 0 0 40px 10px #000
+    background $bg-gen-btn-color
+    border 1px solid $bg-gen-border-color
+    box-shadow 0 0 40px 10px black
     padding .5rem 1rem
     margin 0 0 2rem 0
     font-size 1.5rem
     color #fff
-    font-weight bold
     border-radius .5rem
     cursor pointer
 
     &:hover
-      background-color lighten(#d01e1e, 5%)
+      background-color lighten($bg-gen-btn-color, 5%)
 
     &:focus
-      background-color lighten(#d01e1e, 10%)
-      border 1px solid lighten(#ff4040, 60%)
+      background-color lighten($bg-gen-btn-color, 10%)
+      border 1px solid lighten($bg-gen-border-color, 60%)
       outline 0
 
       &:active
-        background-color darken(#d01e1e, 5%)
+        background-color darken($bg-gen-btn-color, 5%)
 
   .background-summary
     background-color rgba(0, 0, 0, 0.7)
@@ -63,16 +62,18 @@
 
     .background-main-line
       font-size 1.5rem
+      line-height 1.5rem
       font-weight 700
       color #fffe90
-      text-shadow: 0.18rem 0.18rem 0 #000;
+      text-shadow: 0.18rem 0.18rem 0 black;
+      margin-bottom .5rem
       +large()
         font-size 2rem
 
     .background-sub-line
       font-size 1.3rem
       font-style italic
-      text-shadow: 0.15rem 0.15rem 0 #000;
+      text-shadow: 0.15rem 0.15rem 0 black;
       +large()
         font-size 1.5rem
 
@@ -82,6 +83,6 @@
         text-transform uppercase
 
   .background-details
-    background-color #fff
-    color #000
+    background-color white
+    color black
     padding 1rem 2rem 2rem 2rem
