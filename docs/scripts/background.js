@@ -51,10 +51,7 @@ BackgroundGenerator = (function(superClass) {
       className: 'background-main-line'
     }, summary.toLowerCase()), el('div', {
       className: 'background-sub-line'
-    }, description.toLowerCase()), el('button', {
-      className: 'refresh-button',
-      onClick: this.revealDestiny
-    }, 'Show another ↻')))));
+    }, description.toLowerCase())))));
   };
 
   BackgroundGenerator.prototype.renderBackgroundTrait = function(title, text) {
@@ -71,13 +68,13 @@ BackgroundGenerator = (function(superClass) {
     var ideal;
     ideal = this.renderIdeal(this.state.ideal.summary, this.state.ideal.text);
     return el('div', {
+      className: 'background-details'
+    }, el('div', {
       className: 'container'
     }, el('div', {
       className: 'row'
     }, el('div', {
       className: 'col-xs-12'
-    }, el('div', {
-      className: 'background-details'
     }, this.renderBackgroundTrait("Background", this.state.background.name + " (" + this.state.background.source + ")"), this.renderBackgroundTrait("Flaw", this.state.flaw.text), this.renderBackgroundTrait("Bond", this.state.bond.text), this.renderBackgroundTrait("Ideal", ideal), this.renderBackgroundTrait("Personality Trait", this.state.personality.text)))));
   };
 
@@ -102,7 +99,16 @@ BackgroundGenerator = (function(superClass) {
       className: 'row'
     }, el('div', {
       className: 'col-xs-12 text-center'
-    }, el('h1', null, 'D&D 5e Background Generator'), el('h2', null, 'Your Epic Destiny Awaits')))), this.renderDestiny(), this.renderDetails()));
+    }, el('h1', null, 'D&D 5e Background Generator'), el('h2', null, 'Your Epic Destiny Awaits')))), this.renderDestiny(), el('div', {
+      className: 'container'
+    }, el('div', {
+      className: 'row'
+    }, el('div', {
+      className: 'col-xs-12 text-center'
+    }, el('button', {
+      className: 'refresh-button',
+      onClick: this.revealDestiny
+    }, 'Show another ↻')))), this.renderDetails()));
   };
 
   return BackgroundGenerator;
