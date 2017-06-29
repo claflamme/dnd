@@ -8,13 +8,15 @@ body.background
   background-position 50% top
   color #fff
   padding 3rem 0
-  +large()
-    min-height 450px
+  +sm()
+    padding-top 350px
 
   h1
     font-size 1.3rem
     text-shadow 0 0 0.7rem #000, 0 0 1.5rem #000, 0 0 1.5rem #000
     margin-top 0
+    +sm()
+      font-size 2rem
 
   h2
     font-family 'Alegreya SC', serif
@@ -22,13 +24,16 @@ body.background
     line-height 4rem
     margin 0
     text-shadow 0 0 1.5rem #000, 0 0 2rem #000, 0 0 2rem #000
+    +sm()
+      font-size 6rem
+      line-height 6rem
 
   .refresh-button
     background #d01e1e
     border 1px solid #ff4040
     box-shadow 0 0 40px 10px #000
     padding .5rem 1rem
-    margin 3rem 0
+    margin 3rem 0 0 0
     font-size 1.5rem
     color #fff
     font-weight bold
@@ -48,22 +53,24 @@ body.background
 
   .background-summary
     background-color rgba(0, 0, 0, 0.7)
-    padding 1rem
-    border-radius 0.3rem
-    margin-bottom 1rem
-    +large()
-      margin-bottom 3rem
+    padding 3rem
+    margin 1rem 0
+
+    +sm()
+      margin 5rem -15px
 
     .background-main-line
       font-size 1.5rem
       font-weight 700
       color #fffe90
+      text-shadow: 0.18rem 0.18rem 0 #000;
       +large()
         font-size 2rem
 
     .background-sub-line
       font-size 1.3rem
       font-style italic
+      text-shadow: 0.15rem 0.15rem 0 #000;
       +large()
         font-size 1.5rem
 
@@ -76,4 +83,3 @@ body.background
     background-color #fff
     color #000
     padding 1rem 2rem 2rem 2rem
-    box-shadow 0 0 30px 5px #000

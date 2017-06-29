@@ -31,41 +31,42 @@ class BackgroundGenerator extends React.Component
     summary = "#{ @state.flaw.quip } #{ @state.background.quip } #{ @state.bond.quip }."
     description = "#{ @state.ideal.quip } and #{ @state.personality.quip }."
 
-    el 'div', className: 'row',
-      el 'div', className: 'col-xs-12',
-        el 'div', className: 'background-summary text-center',
-          el 'div', className: 'background-main-line',
-            summary.toLowerCase()
-          el 'div', className: 'background-sub-line',
-            description.toLowerCase()
+    el 'div', className: 'container-fluid',
+      el 'div', className: 'row',
+        el 'div', className: 'col-xs-12',
+          el 'div', className: 'background-summary text-center',
+            el 'div', className: 'background-main-line',
+              summary.toLowerCase()
+            el 'div', className: 'background-sub-line',
+              description.toLowerCase()
+            el 'button', className: 'refresh-button', onClick: @revealDestiny,
+              'Show another ↻'
+
+  renderBackgroundTrait: (title, text) ->
+    el 'div', null,
+      el 'h3', className: 'mighty-text',
+        title
+      el 'p', null,
+        text
+
+  renderIdeal: (summary, text) ->
+    el 'span', null,
+      el 'strong', null,
+        "#{ summary }: "
+      text
 
   renderDetails: ->
+    ideal = @renderIdeal @state.ideal.summary, @state.ideal.text
+
     el 'div', className: 'container',
       el 'div', className: 'row',
-        el 'div', className: 'col-xs-12 col-sm-6 col-sm-offset-3',
+        el 'div', className: 'col-xs-12',
           el 'div', className: 'background-details',
-            el 'h3', null,
-              'Background'
-            el 'p', null,
-              "#{ @state.background.name } (#{ @state.background.source })"
-            el 'h3', null,
-              'Flaw'
-            el 'p', null
-              @state.flaw.text
-            el 'h3', null,
-              'Bond'
-            el 'p', null
-              @state.bond.text
-            el 'h3', null,
-              'Ideal'
-            el 'p', null
-              el 'strong', null,
-                "#{ @state.ideal.summary }: "
-              @state.ideal.text
-            el 'h3', null,
-              'Personality Trait'
-            el 'p', null
-              @state.personality.text
+            @renderBackgroundTrait "Background", "#{ @state.background.name } (#{ @state.background.source })"
+            @renderBackgroundTrait "Flaw", @state.flaw.text
+            @renderBackgroundTrait "Bond", @state.bond.text
+            @renderBackgroundTrait "Ideal", ideal
+            @renderBackgroundTrait "Personality Trait", @state.personality.text
 
   revealDestiny: =>
     background = getRandomBackground()
@@ -88,12 +89,7 @@ class BackgroundGenerator extends React.Component
                 'D&D 5e Background Generator'
               el 'h2', null,
                 'Your Epic Destiny Awaits'
-        el 'div', className: 'container-fluid',
-          el 'div', className: 'row',
-            el 'div', className: 'col-xs-12 text-center',
-              el 'button', className: 'refresh-button', onClick: @revealDestiny,
-                'Choose another one'
-          @renderDestiny()
+        @renderDestiny()
         @renderDetails()
 
 ReactDOM.render el(BackgroundGenerator), document.querySelector('#background-container')

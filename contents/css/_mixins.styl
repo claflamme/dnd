@@ -5,3 +5,19 @@ small()
 large()
   @media(min-width 700px)
     { block }
+
+xs()
+  @media(max-width $screen-xs-max)
+    { block }
+
+sm()
+  @media(min-width $screen-sm-min)
+    { block }
+
+md()
+  @media(min-width $screen-md-min)
+    { block }
+
+lg()
+  @media(min-width $screen-lg-min)
+    { block }
