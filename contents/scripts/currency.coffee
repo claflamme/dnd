@@ -18,9 +18,27 @@ fromPairs = (pairs) ->
 
   result
 
-generateDenominationMap = ->
-  fromPairs denominationsList.map (denomination) ->
-    [denomination.key, 0]
+denominationMap = fromPairs denominationsList.map (denomination) ->
+  [denomination.key, 0]
+
+sortDenominations = (a, b) ->
+  b.value > a.value
+
+convertToCopper = (inputs) ->
+  denominationsList.reduce (total, denomination) ->
+    total + (inputs[denomination.key] * denomination.value)
+  , 0
+
+convertToSmallest = (inputs) ->
+  copper = convertToCopper inputs
+
+  sortedDenominations = denominationsList.slice().sort sortDenominations
+
+  sortedDenominations.reduce (output, denomination) ->
+    output[denomination.key] = Math.floor copper / denomination.value
+    copper = copper - (output[denomination.key] * denomination.value)
+    output
+  , {}
 
 class Currency extends React.Component
 
@@ -28,30 +46,12 @@ class Currency extends React.Component
     super props
 
     @state =
-      inputs: generateDenominationMap()
+      inputs: denominationMap
 
   onChange: (denominationKey) ->
     (e) =>
       @state.inputs[denominationKey] = parseInt e.target.value or 0
       @setState @state
-
-  renderSmallest: ->
-    # Convert everything to copper
-    total = denominationsList.reduce (total, denomination) =>
-      total + (@state.inputs[denomination.key] * denomination.value)
-    , 0
-
-    sortedDenominations = denominationsList.slice().sort (a, b) ->
-      b.value > a.value
-
-    # Then, convert it all back to the smallest number of coins
-    denominations = sortedDenominations.reduce (output, denomination) ->
-      output[denomination.key] = Math.floor total / denomination.value
-      total = total - (output[denomination.key] * denomination.value)
-      output
-    , {}
-
-    @renderOutputs denominations
 
   renderCurrencyColumn: (denomination, i) =>
     c 'div', {
@@ -63,12 +63,12 @@ class Currency extends React.Component
         className: 'currency-input'
         onChange: @onChange denomination.key
       c 'div', className: 'currency-key',
-        denomination.key
+        denomination.label
 
   renderConversionDropdown: ->
     c 'select', className: 'currency-output-dropdown',
       c 'option', null,
-        'Most efficient (smallest number of coins)'
+        'Smallest number of coins'
 
   renderOutputs: (outputs) ->
     denominationsList.map (denomination) ->
@@ -85,6 +85,6 @@ class Currency extends React.Component
       c 'div', null,
         @renderConversionDropdown()
         c 'div', className: 'currency-results',
-          @renderSmallest()
+          @renderOutputs convertToSmallest @state.inputs
 
 ReactDOM.render c(Currency), document.querySelector('#currency-container')
