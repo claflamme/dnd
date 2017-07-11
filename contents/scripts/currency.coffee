@@ -93,7 +93,9 @@ class Currency extends React.Component
       denominationsList.map @renderDropdownDenomination
 
   renderOutputs: (outputs) ->
-    denominationsList.map (denomination) ->
+    denominationsList.map (denomination) =>
+      if @state.conversion isnt 'smallest' and denomination.key isnt @state.conversion
+        return null
       c 'span', className: "currency-results__result currency-results__result--#{ denomination.key }",
         c 'strong', null,
           outputs[denomination.key] or 0
