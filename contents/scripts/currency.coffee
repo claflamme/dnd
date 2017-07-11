@@ -29,6 +29,15 @@ convertToCopper = (inputs) ->
     total + (inputs[denomination.key] * denomination.value)
   , 0
 
+convertCopperToDenominations = (copper, denominationsList) ->
+  sortedDenominations = denominationsList.slice().sort sortDenominations
+
+  sortedDenominations.reduce (output, denomination) ->
+    output[denomination.key] = Math.floor copper / denomination.value
+    copper = copper - (output[denomination.key] * denomination.value)
+    output
+  , {}
+
 convertToDenomination = (inputs, key) ->
   copper = convertToCopper inputs
   filteredDenominations = []
@@ -37,24 +46,12 @@ convertToDenomination = (inputs, key) ->
     filteredDenominations.push denomination
     return denomination.key is key
 
-  sortedDenominations = filteredDenominations.slice().sort sortDenominations
-
-  sortedDenominations.reduce (output, denomination) ->
-    output[denomination.key] = Math.floor copper / denomination.value
-    copper = copper - (output[denomination.key] * denomination.value)
-    output
-  , {}
+  convertCopperToDenominations copper, filteredDenominations
 
 convertToSmallest = (inputs) ->
   copper = convertToCopper inputs
 
-  sortedDenominations = denominationsList.slice().sort sortDenominations
-
-  sortedDenominations.reduce (output, denomination) ->
-    output[denomination.key] = Math.floor copper / denomination.value
-    copper = copper - (output[denomination.key] * denomination.value)
-    output
-  , {}
+  convertCopperToDenominations copper, denominationsList
 
 class Currency extends React.Component
 
@@ -83,7 +80,7 @@ class Currency extends React.Component
         className: 'currency-input'
         onChange: @onChange denomination.key
       c 'div', className: 'currency-key',
-        denomination.label
+        denomination.key
 
   renderConversionDropdown: ->
     c 'select', className: 'currency-output-dropdown', onChange: @onDropdownSelect,
