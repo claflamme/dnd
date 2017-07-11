@@ -82,12 +82,15 @@ class Currency extends React.Component
       c 'div', className: 'currency-key',
         denomination.key
 
+  renderDropdownDenomination: (denomination, i) ->
+    c 'option', key: i, value: denomination.key,
+      denomination.label
+
   renderConversionDropdown: ->
     c 'select', className: 'currency-output-dropdown', onChange: @onDropdownSelect,
       c 'option', value: 'smallest',
         'Smallest number of coins'
-      c 'option', value: 'gp',
-        'Gold'
+      denominationsList.map @renderDropdownDenomination
 
   renderOutputs: (outputs) ->
     denominationsList.map (denomination) ->
