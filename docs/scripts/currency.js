@@ -1,5 +1,5 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var Currency, c, denominationsList, fromPairs, generateDenominationMap,
+var Currency, c, convertCopperToDenominations, convertToCopper, convertToDenomination, convertToSmallest, denominationMap, denominationsList, fromPairs, sortDenominations,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
@@ -42,10 +42,45 @@ fromPairs = function(pairs) {
   return result;
 };
 
-generateDenominationMap = function() {
-  return fromPairs(denominationsList.map(function(denomination) {
-    return [denomination.key, 0];
-  }));
+denominationMap = fromPairs(denominationsList.map(function(denomination) {
+  return [denomination.key, 0];
+}));
+
+sortDenominations = function(a, b) {
+  return b.value > a.value;
+};
+
+convertToCopper = function(inputs) {
+  return denominationsList.reduce(function(total, denomination) {
+    return total + (inputs[denomination.key] * denomination.value);
+  }, 0);
+};
+
+convertCopperToDenominations = function(copper, denominationsList) {
+  var sortedDenominations;
+  sortedDenominations = denominationsList.slice().sort(sortDenominations);
+  return sortedDenominations.reduce(function(output, denomination) {
+    output[denomination.key] = Math.floor(copper / denomination.value);
+    copper = copper - (output[denomination.key] * denomination.value);
+    return output;
+  }, {});
+};
+
+convertToDenomination = function(inputs, key) {
+  var copper, filteredDenominations;
+  copper = convertToCopper(inputs);
+  filteredDenominations = [];
+  denominationsList.find(function(denomination) {
+    filteredDenominations.push(denomination);
+    return denomination.key === key;
+  });
+  return convertCopperToDenominations(copper, filteredDenominations);
+};
+
+convertToSmallest = function(inputs) {
+  var copper;
+  copper = convertToCopper(inputs);
+  return convertCopperToDenominations(copper, denominationsList);
 };
 
 Currency = (function(superClass) {
@@ -53,9 +88,11 @@ Currency = (function(superClass) {
 
   function Currency(props) {
     this.renderCurrencyColumn = bind(this.renderCurrencyColumn, this);
+    this.onDropdownSelect = bind(this.onDropdownSelect, this);
     Currency.__super__.constructor.call(this, props);
     this.state = {
-      inputs: generateDenominationMap()
+      inputs: denominationMap,
+      conversion: 'smallest'
     };
   }
 
@@ -68,22 +105,10 @@ Currency = (function(superClass) {
     })(this);
   };
 
-  Currency.prototype.renderSmallest = function() {
-    var denominations, sortedDenominations, total;
-    total = denominationsList.reduce((function(_this) {
-      return function(total, denomination) {
-        return total + (_this.state.inputs[denomination.key] * denomination.value);
-      };
-    })(this), 0);
-    sortedDenominations = denominationsList.slice().sort(function(a, b) {
-      return b.value > a.value;
+  Currency.prototype.onDropdownSelect = function(e) {
+    return this.setState({
+      conversion: e.target.value
     });
-    denominations = sortedDenominations.reduce(function(output, denomination) {
-      output[denomination.key] = Math.floor(total / denomination.value);
-      total = total - (output[denomination.key] * denomination.value);
-      return output;
-    }, {});
-    return this.renderOutputs(denominations);
   };
 
   Currency.prototype.renderCurrencyColumn = function(denomination, i) {
@@ -99,26 +124,48 @@ Currency = (function(superClass) {
     }, denomination.key));
   };
 
+  Currency.prototype.renderDropdownDenomination = function(denomination, i) {
+    return c('option', {
+      key: i,
+      value: denomination.key
+    }, denomination.label);
+  };
+
   Currency.prototype.renderConversionDropdown = function() {
     return c('select', {
-      className: 'currency-output-dropdown'
-    }, c('option', null, 'Most efficient (smallest number of coins)'));
+      className: 'currency-output-dropdown',
+      onChange: this.onDropdownSelect
+    }, c('option', {
+      value: 'smallest'
+    }, 'Smallest number of coins'), denominationsList.map(this.renderDropdownDenomination));
   };
 
   Currency.prototype.renderOutputs = function(outputs) {
-    return denominationsList.map(function(denomination) {
-      return c('span', {
-        className: "currency-results__result currency-results__result--" + denomination.key
-      }, c('strong', null, outputs[denomination.key] || 0), c('small', null, denomination.key + " "));
-    });
+    return denominationsList.map((function(_this) {
+      return function(denomination) {
+        if (_this.state.conversion !== 'smallest' && denomination.key !== _this.state.conversion) {
+          return null;
+        }
+        return c('span', {
+          className: "currency-results__result currency-results__result--" + denomination.key
+        }, c('strong', null, outputs[denomination.key] || 0), c('small', null, denomination.key + " "));
+      };
+    })(this));
   };
 
   Currency.prototype.render = function() {
+    var outputs;
+    outputs = {};
+    if (this.state.conversion === 'smallest') {
+      outputs = convertToSmallest(this.state.inputs);
+    } else {
+      outputs = convertToDenomination(this.state.inputs, this.state.conversion);
+    }
     return c('form', null, c('div', {
       className: 'currency'
     }, denominationsList.map(this.renderCurrencyColumn)), c('div', null, this.renderConversionDropdown(), c('div', {
       className: 'currency-results'
-    }, this.renderSmallest())));
+    }, this.renderOutputs(outputs))));
   };
 
   return Currency;
