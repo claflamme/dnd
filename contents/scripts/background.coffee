@@ -6,6 +6,7 @@ backgroundsList = [
   require './backgrounds/criminal'
   require './backgrounds/entertainer'
   require './backgrounds/folk-hero'
+  require './backgrounds/guild-artisan'
 ]
 
 getRandomFromList = (list) ->
@@ -48,14 +49,15 @@ class BackgroundGenerator extends React.Component
       el 'p', null,
         text
 
-  renderIdeal: (summary, text) ->
+  renderIdeal: (summary, alignment, text) ->
     el 'span', null,
       el 'strong', null,
         "#{ summary }: "
       text
+        " (#{ alignment })"
 
   renderDetails: ->
-    ideal = @renderIdeal @state.ideal.summary, @state.ideal.text
+    ideal = @renderIdeal @state.ideal.summary, @state.ideal.alignment, @state.ideal.text
 
     el 'div', className: 'background-details',
       el 'div', className: 'container',
